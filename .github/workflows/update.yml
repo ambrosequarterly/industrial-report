@@ -1,49 +1,38 @@
-# .github/workflows/update.yml
-# ─────────────────────────────────────────────────────────────
-# Runs automatically every quarter (first Monday of Jan/Apr/Jul/Oct)
-# Also runs every Monday as a light check in case CBRE publishes early
-# Can be triggered manually any time from the GitHub Actions tab
-# ─────────────────────────────────────────────────────────────
-
 name: Quarterly CBRE Report Check
 
 on:
-  # Runs every Monday at 8am ET (12:00 UTC)
   schedule:
     - cron: '0 12 * * 1'
-
-  # Allows you to run this manually from the Actions tab in GitHub
   workflow_dispatch:
+    inputs:
+      test_email:
+        description: 'Type YES to send a test email instead of checking CBRE'
+        required: false
+        default: 'no'
 
 jobs:
   check-and-update:
     runs-on: ubuntu-latest
-
-    # Give the workflow permission to write back to the repo (to update index.html)
     permissions:
       contents: write
 
     steps:
-      # 1. Check out your repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Set up Python
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      # 3. Run the report checker script
       - name: Check CBRE for new reports
         env:
           OUTLOOK_EMAIL: ${{ secrets.OUTLOOK_EMAIL }}
           OUTLOOK_PASSWORD: ${{ secrets.OUTLOOK_PASSWORD }}
           NOTIFY_EMAILS: ${{ secrets.NOTIFY_EMAILS }}
+          TEST_EMAIL: ${{ github.event.inputs.test_email }}
         run: python check_reports.py
 
-      # 4. If index.html was updated, commit the change back to the repo
-      #    This automatically updates the live website
       - name: Commit website updates
         run: |
           git config --global user.name "CBRE Report Bot"
