@@ -1,0 +1,42 @@
+name: Quarterly CBRE Report Check
+
+on:
+  schedule:
+    - cron: '0 12 * * 1'
+  workflow_dispatch:
+    inputs:
+      test_email:
+        description: 'Type YES to send a test email instead of checking CBRE'
+        required: false
+        default: 'no'
+
+jobs:
+  check-and-update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check CBRE for new reports
+        env:
+          OUTLOOK_EMAIL: ${{ secrets.OUTLOOK_EMAIL }}
+          OUTLOOK_PASSWORD: ${{ secrets.OUTLOOK_PASSWORD }}
+          NOTIFY_EMAILS: ${{ secrets.NOTIFY_EMAILS }}
+          TEST_EMAIL: ${{ github.event.inputs.test_email }}
+        run: python check_reports.py
+
+      - name: Commit website updates
+        run: |
+          git config --global user.name "CBRE Report Bot"
+          git config --global user.email "actions@github.com"
+          git add index.html found_reports.json
+          git diff --staged --quiet || git commit -m "Auto-update: CBRE reports checked $(date +'%Y-%m-%d')"
+          git push
