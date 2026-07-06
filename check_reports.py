@@ -20,7 +20,6 @@ MARKETS = [
     ("Denver, CO",              "denver-industrial-figures"),
     ("Orlando / Central FL",    "orlando-industrial-figures"),
     ("Miami-Dade, FL",          "miami-dade-industrial-figures"),
-    ("Broward County, FL",      "broward-industrial-figures"),
     ("Chicago, IL",             "chicago-industrial-figures"),
     ("Phoenix, AZ",             "phoenix-industrial-figures"),
     ("Columbus / Central OH",   "columbus-industrial-figures"),
