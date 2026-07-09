@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,92 +6,84 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ambrose Industrial Submarket Report | Q1 2026</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-  :root{--navy:#0D2240;--blue:#1F5C99;--green:#065F46;--gold:#C8972A;--red:#7F1D1D;--purple:#4C1D95;--amber:#92400E;--teal:#047857;--light:#F4F7FC;--white:#fff;--gray:#6B7280;--mid:#374151;--border:#E2E8F0;}
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'Inter',sans-serif;background:var(--light);color:var(--mid);font-size:13px;line-height:1.6;}
-  .shell{display:flex;height:100vh;overflow:hidden;}
-  .sidebar{width:230px;min-width:230px;background:var(--navy);color:white;display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0;}
-  .main{flex:1;overflow-y:auto;background:var(--light);}
-  .sb-logo{padding:20px 16px 14px;border-bottom:1px solid rgba(255,255,255,.1);}
-  .sb-logo .title{font-size:12px;font-weight:800;color:white;}
-  .sb-logo .quarter{font-size:11px;color:#7EC8E3;font-weight:600;margin-top:2px;}
-  .sb-logo .sub{font-size:10px;color:#94A3B8;margin-top:1px;}
-  .sb-section{padding:12px 14px 4px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#64748B;}
-  .sb-item{display:flex;align-items:center;gap:10px;padding:8px 14px;cursor:pointer;border-left:3px solid transparent;transition:all .15s;color:#CBD5E1;font-size:11px;font-weight:500;}
-  .sb-item:hover{background:rgba(255,255,255,.06);color:white;}
-  .sb-item.active{background:rgba(255,255,255,.1);border-left-color:#7EC8E3;color:white;}
-  .sb-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-  .sb-updated{padding:12px 14px;border-top:1px solid rgba(255,255,255,.1);font-size:10px;color:#64748B;margin-top:auto;}
-  .page{display:none;padding:32px 36px;max-width:1000px;}
-  .page.active{display:block;}
-
-  /* COVER */
-  .cover-hero{background:var(--navy);border-radius:4px;padding:52px 48px;color:white;margin-bottom:24px;position:relative;overflow:hidden;}
-  .cover-hero::after{content:'';position:absolute;right:-40px;top:-40px;width:300px;height:300px;border-radius:50%;background:rgba(126,200,227,.06);}
-  .cover-eyebrow{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#7EC8E3;margin-bottom:14px;}
-  .cover-title{font-size:38px;font-weight:800;line-height:1.1;margin-bottom:8px;position:relative;z-index:1;}
-  .cover-title span{color:#7EC8E3;}
-  .cover-sub{color:#94A3B8;font-size:13px;font-weight:300;margin-bottom:32px;}
-  .cover-tags{display:flex;flex-wrap:wrap;gap:8px;}
-  .cover-tag{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);color:white;padding:6px 14px;border-radius:20px;font-size:11px;cursor:pointer;transition:all .2s;}
-  .cover-tag:hover{background:rgba(255,255,255,.2);border-color:#7EC8E3;color:#7EC8E3;}
-  .info-card{background:white;border-left:4px solid var(--blue);padding:16px 20px;border-radius:0 4px 4px 0;font-size:12px;color:var(--mid);line-height:1.8;margin-bottom:16px;}
-  .info-card strong{color:var(--navy);}
-
-  /* NATIONAL */
-  .nat-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:20px 0;}
-  .nat-stat{background:white;border:1px solid var(--border);padding:16px 14px;border-top:3px solid var(--blue);}
-  .nat-stat .val{font-size:22px;font-weight:800;color:var(--navy);line-height:1;}
-  .nat-stat .val.green{color:var(--green);}
-  .nat-stat .val.gold{color:var(--gold);}
-  .nat-stat .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--gray);margin-top:4px;font-weight:600;}
-  .nat-stat .ch{font-size:10px;margin-top:2px;font-weight:500;}
-  .ch.up{color:var(--green);}.ch.dn{color:#DC2626;}
-
-  /* MARKET */
-  .mkt-banner{border-radius:4px 4px 0 0;padding:26px 28px;color:white;}
-  .mkt-eye{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px;}
-  .mkt-name{font-size:28px;font-weight:800;line-height:1.1;margin-bottom:6px;}
-  .mkt-tag{font-size:12px;color:rgba(255,255,255,.75);font-weight:300;}
-  .mkt-link{display:inline-block;margin-top:10px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:white;padding:5px 14px;border-radius:20px;font-size:11px;text-decoration:none;font-weight:600;transition:all .2s;}
-  .mkt-link:hover{background:rgba(255,255,255,.25);}
-  .stat-row{display:grid;grid-template-columns:repeat(5,1fr);background:white;border:1px solid var(--border);border-top:none;}
-  .stat-cell{padding:14px 16px;border-right:1px solid var(--border);}
-  .stat-cell:last-child{border-right:none;}
-  .stat-val{font-size:20px;font-weight:800;color:var(--navy);line-height:1;margin-bottom:3px;}
-  .stat-val.g{color:var(--green);}.stat-val.gold{color:var(--gold);}
-  .stat-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--gray);font-weight:600;}
-  .stat-ch{font-size:10px;margin-top:2px;font-weight:500;}
-  .content{background:white;border:1px solid var(--border);border-top:none;padding:24px 28px;}
-  .section-lbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);border-bottom:2px solid var(--blue);display:inline-block;padding-bottom:4px;margin:20px 0 12px;}
-  .section-lbl:first-child{margin-top:0;}
-  p.body{font-size:12px;color:var(--mid);line-height:1.75;margin-bottom:10px;}
-  table{width:100%;border-collapse:collapse;font-size:11px;margin:12px 0;}
-  th{background:var(--navy);color:white;padding:8px 10px;text-align:left;font-size:10px;font-weight:600;letter-spacing:.3px;}
-  td{padding:7px 10px;border-bottom:1px solid var(--border);}
-  tr:nth-child(even) td{background:#F8FAFC;}
-  td:first-child{font-weight:600;color:var(--navy);}
-  td:not(:first-child){text-align:center;color:var(--mid);}
-  .kv-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);margin:12px 0;}
-  .kv-k{background:#F8FAFC;padding:7px 10px;font-size:11px;font-weight:600;color:var(--gray);border-bottom:1px solid var(--border);}
-  .kv-v{padding:7px 10px;font-size:11px;font-weight:700;color:var(--navy);border-bottom:1px solid var(--border);border-left:1px solid var(--border);}
-  .callout{background:#EFF6FF;border-left:4px solid var(--blue);padding:14px 16px;margin:16px 0;font-size:12px;color:var(--navy);line-height:1.7;border-radius:0 4px 4px 0;}
-  .note-box{background:#FEF3C7;border-left:4px solid var(--gold);padding:14px 16px;margin:16px 0;font-size:12px;color:#78350F;line-height:1.7;border-radius:0 4px 4px 0;font-style:italic;}
-  .info-box{background:#EFF6FF;border-left:4px solid var(--blue);padding:14px 16px;margin:16px 0;font-size:12px;color:#1E3A5F;line-height:1.7;border-radius:0 4px 4px 0;}
-  .cap-box{background:#F0FDF4;border-left:4px solid var(--green);padding:14px 16px;margin:16px 0;border-radius:0 4px 4px 0;}
-  .cap-box .cap-title{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
-  .cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-  .cap-item{background:white;border:1px solid #BBF7D0;padding:10px 12px;border-radius:4px;}
-  .cap-item .cv{font-size:18px;font-weight:800;color:var(--green);line-height:1;}
-  .cap-item .cl{font-size:10px;color:var(--gray);margin-top:2px;font-weight:600;}
-  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  .page-title{font-size:22px;font-weight:800;color:var(--navy);margin-bottom:4px;}
-  .page-sub{font-size:12px;color:var(--gray);margin-bottom:24px;}
-  ul.bullets{padding-left:18px;margin:8px 0 16px;}
-  ul.bullets li{font-size:12px;color:var(--mid);line-height:1.75;margin-bottom:4px;}
-  h3{font-size:14px;font-weight:700;color:var(--navy);margin:20px 0 8px;}
-  h3:first-child{margin-top:0;}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:#F4F7FC;color:#374151;font-size:13px;line-height:1.6;}
+.shell{display:flex;height:100vh;overflow:hidden;}
+.sidebar{width:230px;min-width:230px;background:#0D2240;color:white;display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0;}
+.main{flex:1;overflow-y:auto;background:#F4F7FC;}
+.sb-logo{padding:20px 16px 14px;border-bottom:1px solid rgba(255,255,255,.1);}
+.sb-logo .title{font-size:12px;font-weight:800;color:#ffffff;}
+.sb-logo .quarter{font-size:11px;color:#7EC8E3;font-weight:600;margin-top:2px;}
+.sb-logo .sub{font-size:10px;color:#94A3B8;margin-top:1px;}
+.sb-section{padding:12px 14px 4px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#64748B;}
+.sb-item{display:flex;align-items:center;gap:10px;padding:8px 14px;cursor:pointer;border-left:3px solid transparent;transition:all .15s;color:#CBD5E1;font-size:11px;font-weight:500;}
+.sb-item:hover{background:rgba(255,255,255,.06);color:#ffffff;}
+.sb-item.active{background:rgba(255,255,255,.1);border-left-color:#7EC8E3;color:#ffffff;}
+.sb-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.sb-updated{padding:12px 14px;border-top:1px solid rgba(255,255,255,.1);font-size:10px;color:#64748B;margin-top:auto;}
+.page{display:none;padding:32px 36px;max-width:1000px;}
+.page.active{display:block;}
+.cover-hero{background:#0D2240;border-radius:4px;padding:52px 48px;color:#ffffff;margin-bottom:24px;position:relative;overflow:hidden;}
+.cover-hero::after{content:'';position:absolute;right:-40px;top:-40px;width:300px;height:300px;border-radius:50%;background:rgba(126,200,227,.06);}
+.cover-eyebrow{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#7EC8E3;margin-bottom:14px;}
+.cover-title{font-size:38px;font-weight:800;line-height:1.1;margin-bottom:8px;position:relative;z-index:1;}
+.cover-title span{color:#7EC8E3;}
+.cover-sub{color:#94A3B8;font-size:13px;font-weight:300;margin-bottom:32px;}
+.cover-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.cover-tag{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);color:#ffffff;padding:6px 14px;border-radius:20px;font-size:11px;cursor:pointer;transition:all .2s;}
+.cover-tag:hover{background:rgba(255,255,255,.2);border-color:#7EC8E3;color:#7EC8E3;}
+.info-card{background:#ffffff;border-left:4px solid #1F5C99;padding:16px 20px;border-radius:0 4px 4px 0;font-size:12px;color:#374151;line-height:1.8;margin-bottom:16px;}
+.info-card strong{color:#0D2240;}
+.nat-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:20px 0;}
+.nat-stat{background:#ffffff;border:1px solid #E2E8F0;padding:16px 14px;border-top:3px solid #1F5C99;}
+.nat-stat .val{font-size:22px;font-weight:800;color:#0D2240;line-height:1;}
+.nat-stat .val.green{color:#065F46;}
+.nat-stat .val.gold{color:#C8972A;}
+.nat-stat .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#6B7280;margin-top:4px;font-weight:600;}
+.nat-stat .ch{font-size:10px;margin-top:2px;font-weight:500;}
+.ch.up{color:#065F46;} .ch.dn{color:#DC2626;}
+.mkt-banner{border-radius:4px 4px 0 0;padding:26px 28px;color:#ffffff;}
+.mkt-eye{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px;}
+.mkt-name{font-size:28px;font-weight:800;line-height:1.1;margin-bottom:6px;}
+.mkt-tag{font-size:12px;color:rgba(255,255,255,.75);font-weight:300;}
+.mkt-link{display:inline-block;margin-top:10px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#ffffff;padding:5px 14px;border-radius:20px;font-size:11px;text-decoration:none;font-weight:600;transition:all .2s;}
+.mkt-link:hover{background:rgba(255,255,255,.25);}
+.stat-row{display:grid;grid-template-columns:repeat(5,1fr);background:#ffffff;border:1px solid #E2E8F0;border-top:none;}
+.stat-cell{padding:14px 16px;border-right:1px solid #E2E8F0;}
+.stat-cell:last-child{border-right:none;}
+.stat-val{font-size:20px;font-weight:800;color:#0D2240;line-height:1;margin-bottom:3px;}
+.stat-val.g{color:#065F46;} .stat-val.gold{color:#C8972A;}
+.stat-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:#6B7280;font-weight:600;}
+.stat-ch{font-size:10px;margin-top:2px;font-weight:500;}
+.content{background:#ffffff;border:1px solid #E2E8F0;border-top:none;padding:24px 28px;}
+.section-lbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1F5C99;border-bottom:2px solid #1F5C99;display:inline-block;padding-bottom:4px;margin:20px 0 12px;}
+.section-lbl:first-child{margin-top:0;}
+p.body{font-size:12px;color:#374151;line-height:1.75;margin-bottom:10px;}
+table{width:100%;border-collapse:collapse;font-size:11px;margin:12px 0;}
+th{background:#0D2240;color:#ffffff;padding:8px 10px;text-align:left;font-size:10px;font-weight:600;letter-spacing:.3px;}
+td{padding:7px 10px;border-bottom:1px solid #E2E8F0;}
+tr:nth-child(even) td{background:#F8FAFC;}
+td:first-child{font-weight:600;color:#0D2240;}
+td:not(:first-child){text-align:center;color:#6B7280;}
+.kv-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid #E2E8F0;margin:12px 0;}
+.kv-k{background:#F8FAFC;padding:7px 10px;font-size:11px;font-weight:600;color:#6B7280;border-bottom:1px solid #E2E8F0;}
+.kv-v{padding:7px 10px;font-size:11px;font-weight:700;color:#0D2240;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0;}
+.callout{background:#EFF6FF;border-left:4px solid #1F5C99;padding:14px 16px;margin:16px 0;font-size:12px;color:#0D2240;line-height:1.7;border-radius:0 4px 4px 0;}
+.note-box{background:#FEF3C7;border-left:4px solid #C8972A;padding:14px 16px;margin:16px 0;font-size:12px;color:#78350F;line-height:1.7;border-radius:0 4px 4px 0;font-style:italic;}
+.info-box{background:#EFF6FF;border-left:4px solid #1F5C99;padding:14px 16px;margin:16px 0;font-size:12px;color:#1E3A5F;line-height:1.7;border-radius:0 4px 4px 0;}
+.cap-box{background:#F0FDF4;border-left:4px solid #065F46;padding:14px 16px;margin:16px 0;border-radius:0 4px 4px 0;}
+.cap-box .cap-title{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#065F46;margin-bottom:8px;}
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.cap-item{background:#ffffff;border:1px solid #BBF7D0;padding:10px 12px;border-radius:4px;}
+.cap-item .cv{font-size:18px;font-weight:800;color:#065F46;line-height:1;}
+.cap-item .cl{font-size:10px;color:#6B7280;margin-top:2px;font-weight:600;}
+.page-title{font-size:22px;font-weight:800;color:#0D2240;margin-bottom:4px;}
+.page-sub{font-size:12px;color:#6B7280;margin-bottom:24px;}
+ul.bullets{padding-left:18px;margin:8px 0 16px;}
+ul.bullets li{font-size:12px;color:#374151;line-height:1.75;margin-bottom:4px;}
+h3{font-size:14px;font-weight:700;color:#0D2240;margin:20px 0 8px;}
+h3:first-child{margin-top:0;}
 </style>
 </head>
 <body>
@@ -102,7 +95,7 @@
     <div class="sub">11 Markets · CBRE Research</div>
   </div>
   <div class="sb-section">Overview</div>
-  <div class="sb-item active" onclick="show('cover')" id="nav-cover"><span class="sb-dot" style="background:#7EC8E3"></span>Cover & Summary</div>
+  <div class="sb-item active" onclick="show('cover')" id="nav-cover"><span class="sb-dot" style="background:#7EC8E3"></span>Cover &amp; Summary</div>
   <div class="sb-item" onclick="show('national')" id="nav-national"><span class="sb-dot" style="background:#94A3B8"></span>U.S. National Context</div>
   <div class="sb-section">Markets</div>
   <div class="sb-item" onclick="show('indy')" id="nav-indy"><span class="sb-dot" style="background:#1F5C99"></span>Indianapolis, IN</div>
@@ -145,14 +138,14 @@
   <div class="info-card">
     <strong>Click any market above to jump directly to that page.</strong><br><br>
     <strong>Document Purpose:</strong> Q1 2026 industrial market snapshots across the fund's 11 active submarkets, sourced from CBRE's quarterly Industrial Figures reports. Designed for investor conversations, board presentations, and executive briefings.<br><br>
-    <strong>Columbus:</strong> CBRE had not yet published a Columbus Q1 2026 report as of preparation. Columbus reflects Q4 2025 data.
+    <strong>Columbus:</strong> CBRE had not yet published a Columbus Q1 2026 Industrial report as of preparation. Data reflects Q4 2025.
   </div>
 </div>
 
 <!-- NATIONAL -->
 <div class="page" id="page-national">
   <div class="page-title">U.S. Industrial Market — National Context</div>
-  <div class="page-sub">CBRE Q1 2026 U.S. Industrial & Logistics Figures</div>
+  <div class="page-sub">CBRE Q1 2026 U.S. Industrial &amp; Logistics Figures</div>
   <div class="nat-stats">
     <div class="nat-stat"><div class="val">249.8M SF</div><div class="lbl">Leased Q1 2026</div><div class="ch up">▲ +14% YoY</div></div>
     <div class="nat-stat"><div class="val">6.7%</div><div class="lbl">National Vacancy</div><div class="ch">Stable</div></div>
@@ -160,12 +153,17 @@
     <div class="nat-stat"><div class="val gold">$11.08</div><div class="lbl">Avg Ask Rent/SF</div><div class="ch up">▲ Growth resumed</div></div>
     <div class="nat-stat"><div class="val">55.4M SF</div><div class="lbl">Completions Q1</div><div class="ch dn">▼ -27% YoY</div></div>
   </div>
-  <div class="info-box"><strong>Key National Themes Q1 2026:</strong><br>• U.S. leasing on track for record 2026 volume. Mega big-box (1.2M+ SF) drove strongest YoY leasing gains.<br>• AI-driven supply chain optimization and domestic manufacturing reshoring accelerating Midwest/SE demand.<br>• Louisville &amp; Nashville explicitly named by CBRE as insulated from tariff/trade policy risk.<br>• Columbus, Cincinnati, Chicago named among most attractive for 2026 occupier expansion.<br>• Build-to-suit activity increasing as spec development constrained by financing and first-gen oversupply.<br>• Per CBRE H2 2025 Cap Rate Survey: National Class A industrial cap rates range 5.0%–6.75% with gateway/infill markets (Miami, NYC) tightest at 4.75%–5.25% and secondary Midwest markets widest at 6.25%–6.75%.</div>
+  <div class="info-box"><strong>Key National Themes Q1 2026:</strong><br>
+  • U.S. leasing on track for record 2026 volume. Mega big-box (1.2M+ SF) drove strongest YoY leasing gains.<br>
+  • AI-driven supply chain optimization and domestic manufacturing reshoring accelerating Midwest/SE demand.<br>
+  • Louisville &amp; Nashville explicitly named by CBRE as insulated from tariff/trade policy risk.<br>
+  • Columbus, Cincinnati, Chicago named among most attractive for 2026 occupier expansion.<br>
+  • Per CBRE H2 2025 Cap Rate Survey: Class A industrial cap rates range 4.75%–6.75% nationally; gateway markets tightest at 4.75%–5.25%, secondary Midwest widest at 6.25%–6.75%.</div>
 </div>
 
 <!-- INDIANAPOLIS -->
 <div class="page" id="page-indy">
-  <div class="mkt-banner" style="background:#0D2240">
+  <div class="mkt-banner" style="background:#0D2240;">
     <div class="mkt-eye">Market 01 · CBRE Q1 2026 · Indianapolis Industrial Figures</div>
     <div class="mkt-name">Indianapolis, Indiana</div>
     <div class="mkt-tag">Vacancy falls to Q2 2023 lows — 3rd consecutive quarter of surging absorption</div>
@@ -182,7 +180,7 @@
     <div class="section-lbl">Market Overview</div>
     <p class="body">Indianapolis's industrial recovery showed no sign of fading in Q1 2026 with 4.9M SF absorbed — the best three-quarter run since Q2–Q4 2022. Vacancy fell to 6.9%, on par with Q2 2023. 77.2% of leases signed were for Class A modern bulk buildings.</p>
     <div class="section-lbl">Submarket Breakdown</div>
-    <table><thead><tr><th>Submarket</th><th>Vacancy</th><th>Availability</th><th>Ask Rent/SF</th><th>Q1 Absorption</th><th>Under Const.</th></tr></thead><tbody>
+    <table><thead><tr><th>Submarket</th><th>Vacancy</th><th>Availability</th><th>Ask Rent/SF</th><th>Net Absorption</th><th>Under Const.</th></tr></thead><tbody>
       <tr><td>Northwest</td><td>2.2%</td><td>2.0%</td><td>$7.68</td><td>0.91M SF</td><td>2.56M SF</td></tr>
       <tr><td>Northeast</td><td>3.5%</td><td>3.7%</td><td>$9.37</td><td>0.31M SF</td><td>0.45M SF</td></tr>
       <tr><td>CBD</td><td>4.1%</td><td>4.5%</td><td>$7.53</td><td>0.04M SF</td><td>—</td></tr>
@@ -207,18 +205,14 @@
         <div class="cap-item"><div class="cv">6.5%–7.25%</div><div class="cl">Class B Stabilized Cap Rate</div></div>
         <div class="cap-item"><div class="cv">$65–$85</div><div class="cl">Est. Price Per SF (Class A)</div></div>
       </div>
-    </div></div>
-        <div class="cap-item"><div class="cv">6.0%–7.0%</div><div class="cl">Value-Add / Class B Cap Rate</div></div>
-        <div class="cap-item"><div class="cv">$65–$85</div><div class="cl">Avg Price Per SF (Class A)</div></div>
-      </div>
     </div>
-    <div class="callout"><strong>Investor Takeaway:</strong> Indianapolis is a CBRE national standout. Northwest at 2.2% vacancy = structural tightness and pricing power. East at 13.4% = lease-up opportunity. +5.5% YoY rent growth confirms landlord pricing power. Cap rates of 5.5%–6.0% for stabilized Class A reflect strong investor demand for Midwest logistics.</div>
+    <div class="callout"><strong>Investor Takeaway:</strong> Indianapolis is a CBRE national standout. Northwest at 2.2% vacancy = structural tightness and pricing power. East at 13.4% = lease-up opportunity with strong absorption momentum. +5.5% YoY rent growth confirms landlord pricing power in a multi-quarter demand recovery.</div>
   </div>
 </div>
 
 <!-- DENVER -->
 <div class="page" id="page-denver">
-  <div class="mkt-banner" style="background:#1E3A5F">
+  <div class="mkt-banner" style="background:#1E3A5F;">
     <div class="mkt-eye">Market 02 · CBRE Q1 2026 · Denver Industrial Figures</div>
     <div class="mkt-name">Denver, Colorado</div>
     <div class="mkt-tag">Pipeline contracts 27% YoY — big-box vacancy set to hit single digits for first time since 2022</div>
@@ -234,8 +228,7 @@
   <div class="content">
     <div class="section-lbl">Market Overview</div>
     <p class="body">Denver maintained positive fundamentals in Q1 2026. Trailing 12-month absorption totaled 3.3M SF. The contracting pipeline (−27.4% YoY) is the most important leading indicator — CBRE specifically forecasts big-box vacancy reaching single digits for the first time since 2022.</p>
-    
-        <div class="section-lbl">Submarket Breakdown</div>
+    <div class="section-lbl">Submarket Breakdown</div>
     <table><thead><tr><th>Submarket</th><th>Vacancy</th><th>Availability</th><th>Ask Rent/SF</th><th>Net Absorption</th><th>Under Const.</th></tr></thead><tbody>
       <tr><td>Northeast (I-70 / Tower Rd)</td><td>7.2%</td><td>9.1%</td><td>$9.50–11.00</td><td>+412K SF</td><td>280K SF</td></tr>
       <tr><td>Southeast (I-25 / Centennial)</td><td>9.1%</td><td>11.4%</td><td>$10.00–12.50</td><td>+180K SF</td><td>—</td></tr>
@@ -243,8 +236,8 @@
       <tr><td>Southwest (Jefferson County)</td><td>8.4%</td><td>10.3%</td><td>$8.50–10.00</td><td>-186K SF</td><td>—</td></tr>
       <tr><td>North Central (Commerce City)</td><td>11.2%</td><td>13.6%</td><td>$7.50–9.00</td><td>-200K SF</td><td>—</td></tr>
       <tr><td><strong>TOTAL</strong></td><td><strong>8.6%</strong></td><td><strong>10.4%</strong></td><td><strong>$10.00</strong></td><td><strong>+416K SF</strong></td><td><strong>413K SF</strong></td></tr>
-      </tbody></table>
-        <div class="section-lbl">Key Q1 2026 Transactions</div>
+    </tbody></table>
+    <div class="section-lbl">Key Q1 2026 Transactions</div>
     <table><thead><tr><th>Tenant / Buyer</th><th>SF</th><th>Type</th><th>Submarket</th></tr></thead><tbody>
       <tr><td>Amazon</td><td>650,000</td><td>New Lease</td><td>Northeast / I-70</td></tr>
       <tr><td>FedEx Ground</td><td>312,000</td><td>Renewal</td><td>Northwest / Arvada</td></tr>
@@ -258,10 +251,6 @@
         <div class="cap-item"><div class="cv">5.5%–6.0%</div><div class="cl">Class B Stabilized Cap Rate</div></div>
         <div class="cap-item"><div class="cv">$70–$95</div><div class="cl">Est. Price Per SF (Class A)</div></div>
       </div>
-    </div></div>
-        <div class="cap-item"><div class="cv">6.25%–7.25%</div><div class="cl">Value-Add / Class B Cap Rate</div></div>
-        <div class="cap-item"><div class="cv">$70–$95</div><div class="cl">Avg Price Per SF (Class A)</div></div>
-      </div>
     </div>
     <div class="callout"><strong>Investor Takeaway:</strong> Contracting pipeline (−27.4% YoY) directly leads to vacancy compression. CBRE's 2026 Outlook forecasts big-box vacancy hitting single digits for first time since 2022. +4.1% YoY rent growth resumed. DIA and central U.S. location provide structural demand resilience.</div>
   </div>
@@ -269,7 +258,7 @@
 
 <!-- ORLANDO -->
 <div class="page" id="page-orlando">
-  <div class="mkt-banner" style="background:#065F46">
+  <div class="mkt-banner" style="background:#065F46;">
     <div class="mkt-eye">Market 03 · CBRE Q1 2026 · Orlando Industrial Figures</div>
     <div class="mkt-name">Orlando / Central Florida</div>
     <div class="mkt-tag">Rents surge 12.4% YoY — strongest in portfolio. Deliveries down 54% QoQ.</div>
@@ -285,17 +274,16 @@
   <div class="content">
     <div class="section-lbl">Market Overview</div>
     <p class="body">Orlando recorded the strongest rent growth in the portfolio at +12.4% YoY. The I-4 corridor connecting Orlando to Tampa is Florida's statewide distribution hub. Vacancy is elevated as the market digests 2022–2024 supply, but the pipeline corrected sharply — a leading indicator of coming vacancy compression.</p>
-    
-        <div class="section-lbl">Submarket Breakdown</div>
+    <div class="section-lbl">Submarket Breakdown</div>
     <table><thead><tr><th>Submarket</th><th>Vacancy</th><th>Availability</th><th>Ask Rent/SF</th><th>Net Absorption</th><th>Under Const.</th></tr></thead><tbody>
       <tr><td>Airport / OIA (Southeast)</td><td>7.9%</td><td>9.4%</td><td>$11.50–13.00</td><td>+186K SF</td><td>—</td></tr>
       <tr><td>I-4 West (Lakeland Corridor)</td><td>9.3%</td><td>11.8%</td><td>$9.00–10.50</td><td>+248K SF</td><td>410K SF</td></tr>
       <tr><td>Northwest (Apopka / SR-429)</td><td>12.4%</td><td>14.9%</td><td>$9.50–11.00</td><td>-142K SF</td><td>922K SF</td></tr>
       <tr><td>Northeast (Sanford / SR-417)</td><td>11.8%</td><td>13.2%</td><td>$8.50–10.00</td><td>+65K SF</td><td>—</td></tr>
-      <tr><td>South (Osceola / Kissimmee)</td><td>13.2%</td><td>15.7%</td><td>$8.00–9.50</td><td>+0K SF</td><td>—</td></tr>
+      <tr><td>South (Osceola / Kissimmee)</td><td>13.2%</td><td>15.7%</td><td>$8.00–9.50</td><td>0K SF</td><td>—</td></tr>
       <tr><td><strong>TOTAL</strong></td><td><strong>10.1%</strong></td><td><strong>12.8%</strong></td><td><strong>$10.01</strong></td><td><strong>+357K SF</strong></td><td><strong>2.1M SF</strong></td></tr>
-      </tbody></table>
-        <div class="section-lbl">Key Q1 2026 Transactions</div>
+    </tbody></table>
+    <div class="section-lbl">Key Q1 2026 Transactions</div>
     <table><thead><tr><th>Tenant / Buyer</th><th>SF</th><th>Type</th><th>Submarket</th></tr></thead><tbody>
       <tr><td>Amazon</td><td>1,000,000</td><td>BTS Delivery</td><td>Northwest / Apopka</td></tr>
       <tr><td>Chewy.com</td><td>750,000</td><td>New Lease</td><td>I-4 West / Lakeland</td></tr>
@@ -309,10 +297,6 @@
         <div class="cap-item"><div class="cv">5.5%–6.0%</div><div class="cl">Class B Stabilized Cap Rate</div></div>
         <div class="cap-item"><div class="cv">$75–$100</div><div class="cl">Est. Price Per SF (Class A)</div></div>
       </div>
-    </div></div>
-        <div class="cap-item"><div class="cv">6.50%–7.50%</div><div class="cl">Value-Add / Class B Cap Rate</div></div>
-        <div class="cap-item"><div class="cv">$75–$100</div><div class="cl">Avg Price Per SF (Class A)</div></div>
-      </div>
     </div>
     <div class="callout"><strong>Investor Takeaway:</strong> +12.4% YoY rent growth is the strongest in this portfolio. Delivery decline of 54% QoQ directly leads to vacancy compression. Elevated vacancy today = lease-up opportunity in a market with irreplaceable statewide distribution geography.</div>
   </div>
@@ -320,8 +304,8 @@
 
 <!-- MIAMI -->
 <div class="page" id="page-miami">
-  <div class="mkt-banner" style="background:#92400E">
-    <div class="mkt-eye">Market 04 · CBRE Q1 2026 · Miami-Dade & Broward Industrial Figures</div>
+  <div class="mkt-banner" style="background:#92400E;">
+    <div class="mkt-eye">Market 04 · CBRE Q1 2026 · Miami-Dade &amp; Broward Industrial Figures</div>
     <div class="mkt-name">Miami / South Florida</div>
     <div class="mkt-tag">Gateway market. Kurv $220M + Blackstone $164M signal institutional capital return.</div>
     <a class="mkt-link" href="https://www.cbre.com/insights/figures/miami-industrial-figures-q1-2026" target="_blank">View CBRE Report →</a>
@@ -345,10 +329,10 @@
     <div class="kv-grid">
       <div class="kv-k">Net Absorption</div><div class="kv-v">101K SF (first positive QTR since early 2024)</div>
       <div class="kv-k">Leasing Volume</div><div class="kv-v">1.2M SF (+24% QoQ)</div>
-      <div class="kv-k">Kurv Industrial</div><div class="kv-v">$220M acquisition · East Pompano</div>
-      <div class="kv-k">Blackstone</div><div class="kv-v">$164M acquisition · Pompano</div>
+      <div class="kv-k">Rent Growth Since Q1 2023</div><div class="kv-v">+30%</div>
+      <div class="kv-k">Vacancy</div><div class="kv-v">5.5% — first no-increase QTR since 2024</div>
     </div>
-        <div class="section-lbl">Key Q1 2026 Transactions</div>
+    <div class="section-lbl">Key Q1 2026 Transactions</div>
     <table><thead><tr><th>Tenant / Buyer</th><th>SF</th><th>Type</th><th>County</th></tr></thead><tbody>
       <tr><td>Kurv Industrial (Investor)</td><td>~1,200,000</td><td>Portfolio Acquisition — $220M</td><td>Broward / East Pompano</td></tr>
       <tr><td>Blackstone (Investor)</td><td>~900,000</td><td>Portfolio Acquisition — $164M</td><td>Broward / Pompano</td></tr>
@@ -362,18 +346,14 @@
         <div class="cap-item"><div class="cv">5.25%–5.75%</div><div class="cl">Class B Stabilized Cap Rate</div></div>
         <div class="cap-item"><div class="cv">$250–$310</div><div class="cl">Est. Price Per SF (Class A)</div></div>
       </div>
-    </div></div>
-        <div class="cap-item"><div class="cv">5.75%–6.50%</div><div class="cl">Value-Add / Class B Cap Rate</div></div>
-        <div class="cap-item"><div class="cv">$250–$310</div><div class="cl">Avg Price Per SF (Class A)</div></div>
-      </div>
     </div>
-    <div class="callout"><strong>Investor Takeaway:</strong> Two of the largest South Florida industrial sales of 2026 closed in Q1. Broward rents up 30% since Q1 2023. At $250–$310/SF, South Florida commands the highest pricing in the portfolio — reflecting irreplaceable gateway status and land scarcity.</div>
+    <div class="callout"><strong>Investor Takeaway:</strong> Two of the largest South Florida industrial sales of 2026 closed in Q1. Broward rents up 30% since Q1 2023 and have never retreated. At $250–$310/SF, South Florida commands the highest pricing in the portfolio — reflecting irreplaceable gateway status and land scarcity.</div>
   </div>
 </div>
 
 <!-- CHICAGO -->
 <div class="page" id="page-chicago">
-  <div class="mkt-banner" style="background:#0D2240">
+  <div class="mkt-banner" style="background:#0D2240;">
     <div class="mkt-eye">Market 05 · CBRE Q1 2026 · Chicago Industrial Figures</div>
     <div class="mkt-name">Chicago, Illinois</div>
     <div class="mkt-tag">Absorption surges 13x QoQ. Rents +5.2% YoY. 58% of pipeline is build-to-suit.</div>
@@ -389,8 +369,7 @@
   <div class="content">
     <div class="section-lbl">Market Overview</div>
     <p class="body">Chicago rebounded sharply in Q1 2026, with net absorption rising from 121K SF to 1.6M SF. Availability tightened 30 bps QoQ. The pipeline is 66% big-box and 58% build-to-suit — signaling genuine occupier demand. CBRE's 2026 Outlook names Chicago as one of the most attractive markets for occupier expansion.</p>
-    
-        <div class="section-lbl">Submarket Breakdown</div>
+    <div class="section-lbl">Submarket Breakdown</div>
     <table><thead><tr><th>Submarket</th><th>Vacancy</th><th>Availability</th><th>Ask Rent/SF</th><th>Net Absorption</th><th>Under Const.</th></tr></thead><tbody>
       <tr><td>O'Hare Corridor</td><td>2.9%</td><td>4.1%</td><td>$15–22/SF</td><td>+520K SF</td><td>—</td></tr>
       <tr><td>I-80 / Joliet Corridor</td><td>12.3%</td><td>14.8%</td><td>$7–9/SF</td><td>+480K SF</td><td>3.4M SF</td></tr>
@@ -399,8 +378,8 @@
       <tr><td>South Suburbs</td><td>6.8%</td><td>8.9%</td><td>$6–8/SF</td><td>+110K SF</td><td>—</td></tr>
       <tr><td>Lake County</td><td>5.2%</td><td>7.0%</td><td>$9–11/SF</td><td>+100K SF</td><td>—</td></tr>
       <tr><td><strong>TOTAL</strong></td><td><strong>8.6%</strong></td><td><strong>10.4%</strong></td><td><strong>$9.03</strong></td><td><strong>1.6M SF</strong></td><td><strong>12.4M SF</strong></td></tr>
-      </tbody></table>
-        <div class="section-lbl">Key Q1 2026 Transactions</div>
+    </tbody></table>
+    <div class="section-lbl">Key Q1 2026 Transactions</div>
     <table><thead><tr><th>Tenant / Buyer</th><th>SF</th><th>Type</th><th>Submarket</th></tr></thead><tbody>
       <tr><td>Home Depot</td><td>1,400,000</td><td>New Lease</td><td>I-80 / Joliet</td></tr>
       <tr><td>Amazon</td><td>1,100,000</td><td>BTS Delivery</td><td>I-80 / Joliet</td></tr>
@@ -415,18 +394,14 @@
         <div class="cap-item"><div class="cv">5.75%–6.5%</div><div class="cl">Class B Stabilized Cap Rate</div></div>
         <div class="cap-item"><div class="cv">$80–$110</div><div class="cl">Est. Price Per SF (Class A)</div></div>
       </div>
-    </div></div>
-        <div class="cap-item"><div class="cv">6.0%–7.0%</div><div class="cl">Value-Add / Class B Cap Rate</div></div>
-        <div class="cap-item"><div class="cv">$80–$110</div><div class="cl">Avg Price Per SF (Class A)</div></div>
-      </div>
     </div>
-    <div class="callout"><strong>Investor Takeaway:</strong> The 13x QoQ absorption rebound signals pent-up demand releasing. BTS-heavy pipeline reduces spec risk. O'Hare air cargo, Class I rail, and I-55/I-80 network are unmatched in the Midwest. Cap rates of 5.5%–6.0% reflect Chicago's large-market liquidity premium.</div>
+    <div class="callout"><strong>Investor Takeaway:</strong> The 13x QoQ absorption rebound signals pent-up demand releasing. BTS-heavy pipeline reduces spec risk. O'Hare air cargo, Class I rail, and I-55/I-80 network are unmatched in the Midwest. Cap rates of 5.0%–5.75% reflect Chicago's large-market liquidity premium.</div>
   </div>
 </div>
 
 <!-- PHOENIX -->
 <div class="page" id="page-phoenix">
-  <div class="mkt-banner" style="background:#B45309">
+  <div class="mkt-banner" style="background:#B45309;">
     <div class="mkt-eye">Market 06 · CBRE Q1 2026 · Phoenix Industrial Figures</div>
     <div class="mkt-name">Phoenix, Arizona</div>
     <div class="mkt-tag">Net absorption +200% YoY. Deliveries at 2019 lows. Vacancy −80 bps in one quarter.</div>
@@ -442,8 +417,7 @@
   <div class="content">
     <div class="section-lbl">Market Overview</div>
     <p class="body">Phoenix posted one of the most exceptional absorption results nationally in Q1 2026. The 200% YoY surge combined with deliveries at 2019 lows signals a powerful supply-demand rebalancing. CBRE specifically identifies Phoenix as having limited supply of first-generation big-box blocks of 500K+ SF.</p>
-    
-        <div class="section-lbl">Submarket Breakdown</div>
+    <div class="section-lbl">Submarket Breakdown</div>
     <table><thead><tr><th>Submarket</th><th>Vacancy</th><th>Availability</th><th>Ask Rent/SF</th><th>Net Absorption</th><th>Under Const.</th></tr></thead><tbody>
       <tr><td>Southwest (Tolleson / I-10)</td><td>8.9%</td><td>11.2%</td><td>$13.00–15.00</td><td>+2.1M SF</td><td>—</td></tr>
       <tr><td>Southeast (Mesa / Chandler)</td><td>11.4%</td><td>13.8%</td><td>$12.50–14.50</td><td>+1.4M SF</td><td>—</td></tr>
@@ -451,8 +425,8 @@
       <tr><td>Deer Valley (North Phoenix)</td><td>9.8%</td><td>12.1%</td><td>$13.50–16.00</td><td>+620K SF</td><td>—</td></tr>
       <tr><td>East Valley (Gilbert / Queen Creek)</td><td>13.1%</td><td>15.4%</td><td>$11.50–13.50</td><td>+320K SF</td><td>—</td></tr>
       <tr><td><strong>TOTAL</strong></td><td><strong>10.2%</strong></td><td><strong>12.6%</strong></td><td><strong>$12.72</strong></td><td><strong>4.9M SF</strong></td><td><strong>1.4M SF</strong></td></tr>
-      </tbody></table>
-        <div class="section-lbl">Key Q1 2026 Transactions</div>
+    </tbody></table>
+    <div class="section-lbl">Key Q1 2026 Transactions</div>
     <table><thead><tr><th>Tenant / Buyer</th><th>SF</th><th>Type</th><th>Submarket</th></tr></thead><tbody>
       <tr><td>Amazon</td><td>1,200,000</td><td>New Lease</td><td>Southwest / Tolleson</td></tr>
       <tr><td>Lucid Motors</td><td>850,000</td><td>Expansion</td><td>Southeast / Casa Grande</td></tr>
@@ -466,22 +440,18 @@
         <div class="cap-item"><div class="cv">6.0%–6.5%</div><div class="cl">Class B Stabilized Cap Rate</div></div>
         <div class="cap-item"><div class="cv">$110–$145</div><div class="cl">Est. Price Per SF (Class A)</div></div>
       </div>
-    </div></div>
-        <div class="cap-item"><div class="cv">6.25%–7.25%</div><div class="cl">Value-Add / Class B Cap Rate</div></div>
-        <div class="cap-item"><div class="cv">$110–$145</div><div class="cl">Avg Price Per SF (Class A)</div></div>
-      </div>
     </div>
-    <div class="callout"><strong>Investor Takeaway:</strong> Delivering at 2019 lows while absorbing at 200% above prior year is among the cleanest supply-demand recovery signals in the country. Vacancy compression toward single digits is CBRE's base case. Strong semiconductor and EV demand anchors long-term industrial absorption.</div>
+    <div class="callout"><strong>Investor Takeaway:</strong> Delivering at 2019 lows while absorbing at 200% above prior year is among the cleanest supply-demand recovery signals in the country. TSMC's $65B+ campus and Lucid Motors anchor long-term industrial demand. Vacancy compression toward single digits is CBRE's base case.</div>
   </div>
 </div>
 
 <!-- COLUMBUS -->
 <div class="page" id="page-columbus">
-  <div class="mkt-banner" style="background:#4C1D95">
+  <div class="mkt-banner" style="background:#4C1D95;">
     <div class="mkt-eye">Market 07 · CBRE Q4 2025 (Most Recent Available) · Columbus Industrial Figures</div>
     <div class="mkt-name">Columbus / Central Ohio</div>
     <div class="mkt-tag">$36.4B mega-project investment. Intel, Honda/LG, 1,000 acres of data centers.</div>
-    <a class="mkt-link" href="https://www.cbre.com/insights/figures/columbus-industrial-figures-q4-2025" target="_blank">Check for Latest Report →</a>
+    <a class="mkt-link" href="https://www.cbre.com/insights/figures/columbus-industrial-figures-q4-2025" target="_blank">View CBRE Report →</a>
   </div>
   <div class="stat-row">
     <div class="stat-cell"><div class="stat-val g">6.0%</div><div class="stat-lbl">Vacancy (Q4 2025)</div><div class="stat-ch dn">▼ -110 bps QoQ</div></div>
@@ -491,16 +461,7 @@
     <div class="stat-cell"><div class="stat-val">$5.82/SF</div><div class="stat-lbl">NNN/YR Ask Rent</div><div class="stat-ch dn">▼ -5.8% QoQ</div></div>
   </div>
   <div class="content">
-    
-    <div class="kv-grid">
-      <div class="kv-k">Crane Worldwide Logistics</div><div class="kv-v">1.2M SF · New Lease · Pickaway County</div>
-      <div class="kv-k">DHL Supply Chain</div><div class="kv-v">737K SF · New Lease · Southeast</div>
-      <div class="kv-k">Mega Project Investment</div><div class="kv-v">$36.4B (Intel, Honda/LG, data centers)</div>
-      <div class="kv-k">Data Center Acreage</div><div class="kv-v">1,000 acres dedicated</div>
-      <div class="kv-k">Population within 1 day's drive</div><div class="kv-v">151M people (~45% of U.S.)</div>
-      <div class="kv-k">Available 500K+ SF Blocks</div><div class="kv-v">Limited (CBRE 2026 Outlook)</div>
-    </div>
-            <div class="section-lbl">Market Overview</div>
+    <div class="section-lbl">Market Overview</div>
     <p class="body">Columbus closed 2025 with 10.0M SF of net absorption and vacancy declining 110 basis points in Q4 alone to 6.0%. CBRE's 2026 Outlook names Columbus as one of few markets nationally with a limited supply of first-generation big-box blocks of 500K+ SF. The $36.4B in announced mega-project investment — led by Intel, Honda/LG, and over 1,000 acres of dedicated data center development — positions Columbus as the single most compelling long-term industrial growth market in the Midwest.</p>
     <div class="section-lbl">Submarket Breakdown</div>
     <table><thead><tr><th>Submarket</th><th>Vacancy</th><th>Availability</th><th>Ask Rent/SF</th><th>Net Absorption</th><th>Under Const.</th></tr></thead><tbody>
@@ -510,11 +471,11 @@
       <tr><td>Northeast (New Albany / Intel)</td><td>7.4%</td><td>9.2%</td><td>$6.00–7.50</td><td>+0.5M SF</td><td>2.1M SF</td></tr>
       <tr><td>Northwest (Dublin / Marysville)</td><td>6.9%</td><td>8.6%</td><td>$5.75–7.00</td><td>+0.3M SF</td><td>1.6M SF</td></tr>
       <tr><td><strong>TOTAL</strong></td><td><strong>6.0%</strong></td><td><strong>7.8%</strong></td><td><strong>$5.82</strong></td><td><strong>3.9M SF</strong></td><td><strong>4.9M SF</strong></td></tr>
-      </tbody></table>
-        <div class="section-lbl">Key Q1 2026 Transactions</div>
+    </tbody></table>
+    <div class="section-lbl">Key Q4 2025 Transactions</div>
     <table><thead><tr><th>Tenant / Buyer</th><th>SF</th><th>Type</th><th>Submarket</th></tr></thead><tbody>
       <tr><td>Crane Worldwide Logistics</td><td>1,200,000</td><td>New Lease</td><td>Pickaway County</td></tr>
-      <tr><td>DHL Supply Chain</td><td>737,000</td><td>New Lease</td><td>Southeast</td></tr>
+      <tr><td>DHL Supply Chain</td><td>737,000</td><td>New Lease</td><td>Southeast / Rickenbacker</td></tr>
       <tr><td>Amazon</td><td>620,000</td><td>BTS Delivery</td><td>Northeast / New Albany</td></tr>
       <tr><td>Honda (Supply Chain)</td><td>480,000</td><td>New Lease</td><td>Northwest / Marysville</td></tr>
     </tbody></table>
@@ -525,10 +486,6 @@
         <div class="cap-item"><div class="cv">6.25%–7.0%</div><div class="cl">Class B Stabilized Cap Rate</div></div>
         <div class="cap-item"><div class="cv">$55–$75</div><div class="cl">Est. Price Per SF (Class A)</div></div>
       </div>
-    </div></div>
-        <div class="cap-item"><div class="cv">6.0%–7.5%</div><div class="cl">Value-Add / Class B Cap Rate</div></div>
-        <div class="cap-item"><div class="cv">$55–$75</div><div class="cl">Avg Price Per SF (Class A)</div></div>
-      </div>
     </div>
     <div class="callout"><strong>Investor Takeaway:</strong> Columbus is the single most compelling long-term growth story in the portfolio. The Intel campus ($20B+), Honda/LG battery plant, and 1,000 acres of data center development represent a generational industrial demand catalyst. With 45% of U.S. population within a day's drive, this is an unmatched distribution platform.</div>
   </div>
@@ -536,7 +493,7 @@
 
 <!-- CLEVELAND -->
 <div class="page" id="page-cleveland">
-  <div class="mkt-banner" style="background:#1E3A5F">
+  <div class="mkt-banner" style="background:#1E3A5F;">
     <div class="mkt-eye">Market 08 · CBRE Q1 2026 · Cleveland Industrial Figures</div>
     <div class="mkt-name">Cleveland / Northeast Ohio</div>
     <div class="mkt-tag">Tightest vacancy in portfolio (3.9%). 5-year range 2.7%–4.3%. Zero deliveries Q1 2026.</div>
@@ -551,9 +508,8 @@
   </div>
   <div class="content">
     <div class="section-lbl">Market Overview</div>
-    <p class="body">Cleveland snapped back in Q1 2026. Net absorption turned positive at 1.0M SF — a 2.2M SF swing from Q4 2025. Over five years, vacancy has stayed within 2.7%–4.3% — the most disciplined supply profile of any major market in this portfolio.</p>
-    
-        <div class="section-lbl">Submarket Breakdown</div>
+    <p class="body">Cleveland snapped back in Q1 2026. Net absorption turned positive at 1.0M SF — a 2.2M SF swing from Q4 2025. Over five years, vacancy has stayed within 2.7%–4.3% — the most disciplined supply profile of any major market in this portfolio. Zero deliveries with only 124K SF under construction means near-zero near-term supply risk.</p>
+    <div class="section-lbl">Submarket Breakdown</div>
     <table><thead><tr><th>Submarket</th><th>Vacancy</th><th>Availability</th><th>Ask Rent/SF</th><th>Net Absorption</th><th>Under Const.</th></tr></thead><tbody>
       <tr><td>Airport / West (Brook Park)</td><td>2.8%</td><td>3.9%</td><td>$6.00–7.50</td><td>+380K SF</td><td>—</td></tr>
       <tr><td>East (Solon / Twinsburg)</td><td>3.5%</td><td>4.8%</td><td>$5.75–7.00</td><td>+290K SF</td><td>124K SF</td></tr>
@@ -561,8 +517,8 @@
       <tr><td>South (Streetsboro / Ravenna)</td><td>5.1%</td><td>6.8%</td><td>$5.00–6.25</td><td>+100K SF</td><td>—</td></tr>
       <tr><td>Downtown / Near West</td><td>3.9%</td><td>5.1%</td><td>$5.50–6.75</td><td>+50K SF</td><td>—</td></tr>
       <tr><td><strong>TOTAL</strong></td><td><strong>3.9%</strong></td><td><strong>5.2%</strong></td><td><strong>$5.49</strong></td><td><strong>1.0M SF</strong></td><td><strong>124K SF</strong></td></tr>
-      </tbody></table>
-        <div class="section-lbl">Key Q1 2026 Transactions</div>
+    </tbody></table>
+    <div class="section-lbl">Key Q1 2026 Transactions</div>
     <table><thead><tr><th>Tenant / Buyer</th><th>SF</th><th>Type</th><th>Submarket</th></tr></thead><tbody>
       <tr><td>Amazon</td><td>500,000</td><td>New Lease</td><td>Airport / West</td></tr>
       <tr><td>Sherwin-Williams</td><td>385,000</td><td>Renewal</td><td>East / Solon</td></tr>
@@ -576,18 +532,14 @@
         <div class="cap-item"><div class="cv">7.0%–7.75%</div><div class="cl">Class B Stabilized Cap Rate</div></div>
         <div class="cap-item"><div class="cv">$45–$65</div><div class="cl">Est. Price Per SF (Class A)</div></div>
       </div>
-    </div></div>
-        <div class="cap-item"><div class="cv">6.5%–8.0%</div><div class="cl">Value-Add / Class B Cap Rate</div></div>
-        <div class="cap-item"><div class="cv">$45–$65</div><div class="cl">Avg Price Per SF (Class A)</div></div>
-      </div>
     </div>
-    <div class="callout"><strong>Investor Takeaway:</strong> Cleveland offers the tightest and most stable vacancy profile in the portfolio. Zero deliveries + 124K SF pipeline = near-zero near-term supply risk. Higher cap rates reflect secondary market pricing — a value-entry point relative to primary Midwest markets.</div>
+    <div class="callout"><strong>Investor Takeaway:</strong> Cleveland offers the tightest and most stable vacancy profile in the portfolio. Zero deliveries + 124K SF pipeline = near-zero near-term supply risk. At 3.9% vacancy, occupancy protection is exceptional. Higher cap rates reflect secondary market pricing — a value-entry point relative to primary Midwest markets.</div>
   </div>
 </div>
 
 <!-- CINCINNATI -->
 <div class="page" id="page-cincinnati">
-  <div class="mkt-banner" style="background:#047857">
+  <div class="mkt-banner" style="background:#047857;">
     <div class="mkt-eye">Market 09 · CBRE Q1 2026 · Cincinnati Industrial Figures</div>
     <div class="mkt-name">Cincinnati, Ohio</div>
     <div class="mkt-tag">Breakout quarter — 2.8M SF absorbed. Walmart buys 1.2M SF. NE submarket vacancy collapses to 1.5%.</div>
@@ -602,7 +554,7 @@
   </div>
   <div class="content">
     <div class="section-lbl">Market Overview</div>
-    <p class="body">Cincinnati delivered a breakout Q1 2026, with net absorption nearly tripling the 2025 YTD pace. Walmart's 1.2M SF user purchase at 760 Encore Drive drove the Northeast submarket's vacancy to collapse to 1.5%.</p>
+    <p class="body">Cincinnati delivered a breakout Q1 2026, with net absorption nearly tripling the 2025 YTD pace. Walmart's 1.2M SF user purchase at 760 Encore Drive drove the Northeast submarket's vacancy to collapse to 1.5%. Total transaction volume of 5.6M SF demonstrates exceptional market liquidity.</p>
     <div class="section-lbl">Submarket Breakdown</div>
     <table><thead><tr><th>Submarket</th><th>Vacancy</th><th>Availability</th><th>Ask Rent/SF</th><th>Net Absorption</th><th>Under Const.</th></tr></thead><tbody>
       <tr><td>Northeast (Mason / Sharonville)</td><td>1.5%</td><td>2.8%</td><td>$6.50–8.00</td><td>+1.2M SF</td><td>—</td></tr>
@@ -611,24 +563,20 @@
       <tr><td>Central (Blue Ash / Kenwood)</td><td>6.1%</td><td>7.8%</td><td>$6.25–7.75</td><td>+0.2M SF</td><td>—</td></tr>
       <tr><td>Southeast (Clermont County)</td><td>7.3%</td><td>9.1%</td><td>$5.25–6.50</td><td>+0.1M SF</td><td>—</td></tr>
       <tr><td><strong>TOTAL</strong></td><td><strong>~4.8%</strong></td><td><strong>~6.4%</strong></td><td><strong>~$6.50</strong></td><td><strong>2.8M SF</strong></td><td><strong>927K SF</strong></td></tr>
-      </tbody></table>
-    <div class="section-lbl">Notable Q1 2026 Transactions</div>
-    <table><thead><tr><th>Transaction</th><th>Size</th><th>Type</th><th>Location</th></tr></thead><tbody>
-      <tr><td>Walmart purchase</td><td>1,200,000 SF</td><td>User Sale</td><td>760 Encore Dr · Northeast</td></tr>
-      <tr><td>Hit Promotional Products BTS</td><td>800,000 SF</td><td>BTS Delivery</td><td>7995 Seward Rd · Northwest</td></tr>
-      <tr><td>Group Sale groundbreaking</td><td>71,840 SF</td><td>New Construction</td><td>412 S Cooper Ave · NW</td></tr>
-      <tr><td>Rumpke BTS groundbreaking</td><td>42,612 SF</td><td>Build-to-Suit</td><td>Champions Way · Central</td></tr>
     </tbody></table>
-        <div class="cap-box">
+    <div class="section-lbl">Notable Q1 2026 Transactions</div>
+    <table><thead><tr><th>Tenant / Buyer</th><th>SF</th><th>Type</th><th>Location</th></tr></thead><tbody>
+      <tr><td>Walmart</td><td>1,200,000</td><td>User Sale</td><td>760 Encore Dr · Northeast</td></tr>
+      <tr><td>Hit Promotional Products</td><td>800,000</td><td>BTS Delivery</td><td>7995 Seward Rd · Northwest</td></tr>
+      <tr><td>Group Sale groundbreaking</td><td>71,840</td><td>New Construction</td><td>412 S Cooper Ave · NW</td></tr>
+      <tr><td>Rumpke BTS groundbreaking</td><td>42,612</td><td>Build-to-Suit</td><td>Champions Way · Central</td></tr>
+    </tbody></table>
+    <div class="cap-box">
       <div class="cap-title">Investment / Cap Rate Data — CBRE H2 2025 Cap Rate Survey</div>
       <div class="cap-grid">
         <div class="cap-item"><div class="cv">5.75%–6.25%</div><div class="cl">Class A Stabilized Cap Rate</div></div>
         <div class="cap-item"><div class="cv">6.5%–7.25%</div><div class="cl">Class B Stabilized Cap Rate</div></div>
         <div class="cap-item"><div class="cv">$55–$75</div><div class="cl">Est. Price Per SF (Class A)</div></div>
-      </div>
-    </div></div>
-        <div class="cap-item"><div class="cv">6.5%–7.5%</div><div class="cl">Value-Add / Class B Cap Rate</div></div>
-        <div class="cap-item"><div class="cv">$55–$75</div><div class="cl">Avg Price Per SF (Class A)</div></div>
       </div>
     </div>
     <div class="callout"><strong>Investor Takeaway:</strong> Walmart purchasing 1.2M SF is one of the most powerful demand signals in this portfolio. CBRE names Cincinnati a top 2026 expansion market. I-75 corridor positioning (Michigan auto to Gulf ports) is irreplaceable. Total transaction volume of 5.6M SF demonstrates exceptional market liquidity.</div>
@@ -637,7 +585,7 @@
 
 <!-- LOUISVILLE -->
 <div class="page" id="page-louisville">
-  <div class="mkt-banner" style="background:#92400E">
+  <div class="mkt-banner" style="background:#92400E;">
     <div class="mkt-eye">Market 10 · CBRE Q1 2026 · Louisville Industrial Figures</div>
     <div class="mkt-name">Louisville, Kentucky</div>
     <div class="mkt-tag">Rents +7.5% YoY. One of only 2 markets CBRE names as insulated from trade policy risk.</div>
@@ -652,18 +600,17 @@
   </div>
   <div class="content">
     <div class="section-lbl">Market Overview</div>
-    <p class="body">Louisville and Nashville are the ONLY two markets CBRE's 2026 Outlook explicitly names as expected to maintain strong rent growth due to domestic-distribution orientation — directly insulating them from international trade volatility.</p>
-    
-        <div class="section-lbl">Submarket Breakdown</div>
+    <p class="body">Louisville and Nashville are the ONLY two markets CBRE's 2026 Outlook explicitly names as expected to maintain strong rent growth due to domestic-distribution orientation — directly insulating them from international trade volatility. UPS Worldport, the world's largest automated package hub, anchors permanent logistics demand.</p>
+    <div class="section-lbl">Submarket Breakdown</div>
     <table><thead><tr><th>Submarket</th><th>Vacancy</th><th>Availability</th><th>Ask Rent/SF</th><th>Net Absorption</th><th>Under Const.</th></tr></thead><tbody>
       <tr><td>Airport / UPS Worldport</td><td>2.1%</td><td>3.4%</td><td>$7.50–9.00</td><td>+180K SF</td><td>—</td></tr>
       <tr><td>Northeast (Eastpoint / Bluegrass)</td><td>3.8%</td><td>5.2%</td><td>$6.50–8.00</td><td>+90K SF</td><td>—</td></tr>
       <tr><td>South (Preston Hwy / I-65)</td><td>5.2%</td><td>6.9%</td><td>$6.00–7.50</td><td>-120K SF</td><td>—</td></tr>
       <tr><td>Northwest (I-64 / Riverport)</td><td>4.9%</td><td>6.5%</td><td>$6.25–7.75</td><td>-92K SF</td><td>—</td></tr>
-      <tr><td>Oldham County (I-71 North)</td><td>6.1%</td><td>8.2%</td><td>$5.75–7.00</td><td>+0K SF</td><td>—</td></tr>
+      <tr><td>Oldham County (I-71 North)</td><td>6.1%</td><td>8.2%</td><td>$5.75–7.00</td><td>0K SF</td><td>—</td></tr>
       <tr><td><strong>TOTAL</strong></td><td><strong>4.5%</strong></td><td><strong>6.9%</strong></td><td><strong>$6.65</strong></td><td><strong>57.9K SF</strong></td><td><strong>—</strong></td></tr>
-      </tbody></table>
-        <div class="section-lbl">Key Q1 2026 Transactions</div>
+    </tbody></table>
+    <div class="section-lbl">Key Q1 2026 Transactions</div>
     <table><thead><tr><th>Tenant / Buyer</th><th>SF</th><th>Type</th><th>Submarket</th></tr></thead><tbody>
       <tr><td>Amazon Air</td><td>800,000</td><td>Expansion</td><td>Airport / UPS Worldport</td></tr>
       <tr><td>GE Appliances</td><td>450,000</td><td>New Lease</td><td>Northeast / Eastpoint</td></tr>
@@ -677,10 +624,6 @@
         <div class="cap-item"><div class="cv">6.0%–6.5%</div><div class="cl">Class B Stabilized Cap Rate</div></div>
         <div class="cap-item"><div class="cv">$60–$80</div><div class="cl">Est. Price Per SF (Class A)</div></div>
       </div>
-    </div></div>
-        <div class="cap-item"><div class="cv">6.25%–7.25%</div><div class="cl">Value-Add / Class B Cap Rate</div></div>
-        <div class="cap-item"><div class="cv">$60–$80</div><div class="cl">Avg Price Per SF (Class A)</div></div>
-      </div>
     </div>
     <div class="callout"><strong>Investor Takeaway:</strong> In a tariff-uncertainty environment, Louisville's domestic-distribution orientation is a unique risk differentiator. +7.5% YoY rent growth with 4.5% vacancy and limited first-gen supply delivers both occupancy stability and rent growth momentum. UPS Worldport ensures permanent logistics demand.</div>
   </div>
@@ -688,7 +631,7 @@
 
 <!-- NASHVILLE -->
 <div class="page" id="page-nashville">
-  <div class="mkt-banner" style="background:#7F1D1D">
+  <div class="mkt-banner" style="background:#7F1D1D;">
     <div class="mkt-eye">Market 11 · CBRE Q1 2026 · Nashville Industrial Figures</div>
     <div class="mkt-name">Nashville, Tennessee</div>
     <div class="mkt-tag">Rents +31.5% since Q1 2023. 4.4% vacancy. One of 2 markets CBRE names for sustained rent growth.</div>
@@ -704,17 +647,16 @@
   <div class="content">
     <div class="section-lbl">Market Overview</div>
     <p class="body">Nashville delivered steady demand growth with declining vacancy and accelerating rent in Q1 2026. Rents are now 31.5% above Q1 2023 — one of the strongest cumulative 3-year rent growth trajectories in the portfolio. The pipeline expanded to 8.8M SF (+15.4% QoQ), largely forward-leased.</p>
-    
-        <div class="section-lbl">Submarket Breakdown</div>
+    <div class="section-lbl">Submarket Breakdown</div>
     <table><thead><tr><th>Submarket</th><th>Vacancy</th><th>Availability</th><th>Ask Rent/SF</th><th>Net Absorption</th><th>Under Const.</th></tr></thead><tbody>
       <tr><td>Airport (BNA / Donelson)</td><td>2.9%</td><td>4.1%</td><td>$9.00–11.00</td><td>+210K SF</td><td>—</td></tr>
       <tr><td>Southeast (Antioch / Murfreesboro)</td><td>3.8%</td><td>5.3%</td><td>$8.00–10.00</td><td>+180K SF</td><td>1.2M SF</td></tr>
       <tr><td>Lebanon / Mt. Juliet (I-40 East)</td><td>5.1%</td><td>6.8%</td><td>$7.50–9.50</td><td>+120K SF</td><td>3.1M SF</td></tr>
       <tr><td>North (Hendersonville / Gallatin)</td><td>4.7%</td><td>6.2%</td><td>$7.00–9.00</td><td>+42K SF</td><td>2.4M SF</td></tr>
-      <tr><td>West (Dickson / Clarksville)</td><td>6.2%</td><td>8.4%</td><td>$6.50–8.00</td><td>+0K SF</td><td>2.1M SF</td></tr>
+      <tr><td>West (Dickson / Clarksville)</td><td>6.2%</td><td>8.4%</td><td>$6.50–8.00</td><td>0K SF</td><td>2.1M SF</td></tr>
       <tr><td><strong>TOTAL</strong></td><td><strong>4.4%</strong></td><td><strong>5.9%</strong></td><td><strong>~$8.50</strong></td><td><strong>552K SF</strong></td><td><strong>8.8M SF</strong></td></tr>
-      </tbody></table>
-        <div class="section-lbl">Key Q1 2026 Transactions</div>
+    </tbody></table>
+    <div class="section-lbl">Key Q1 2026 Transactions</div>
     <table><thead><tr><th>Tenant / Buyer</th><th>SF</th><th>Type</th><th>Submarket</th></tr></thead><tbody>
       <tr><td>Amazon</td><td>1,100,000</td><td>BTS Delivery</td><td>Lebanon / Mt. Juliet</td></tr>
       <tr><td>Dollar General</td><td>850,000</td><td>New Lease</td><td>North / Gallatin</td></tr>
@@ -728,33 +670,29 @@
         <div class="cap-item"><div class="cv">5.75%–6.75%</div><div class="cl">Class B Stabilized Cap Rate</div></div>
         <div class="cap-item"><div class="cv">$70–$95</div><div class="cl">Est. Price Per SF (Class A)</div></div>
       </div>
-    </div></div>
-        <div class="cap-item"><div class="cv">6.0%–7.0%</div><div class="cl">Value-Add / Class B Cap Rate</div></div>
-        <div class="cap-item"><div class="cv">$70–$95</div><div class="cl">Avg Price Per SF (Class A)</div></div>
-      </div>
     </div>
-    <div class="callout"><strong>Investor Takeaway:</strong> +31.5% cumulative rent growth in 3 years demonstrates durable pricing power. Nashville and Louisville are the ONLY two markets named by CBRE for sustained rent growth. At 4.4% vacancy with a largely forward-leased pipeline, growth is sustainable. Cap rates of 5.5%–6.0% reflect strong investor conviction in the market.</div>
+    <div class="callout"><strong>Investor Takeaway:</strong> +31.5% cumulative rent growth in 3 years demonstrates durable pricing power. Nashville and Louisville are the ONLY two markets named by CBRE for sustained rent growth. At 4.4% vacancy with a largely forward-leased pipeline, growth is sustainable.</div>
   </div>
 </div>
 
 <!-- MONITORING -->
 <div class="page" id="page-monitoring">
-  <div class="page-title">Report Monitoring & Auto-Alerts</div>
+  <div class="page-title">Report Monitoring &amp; Auto-Alerts</div>
   <div class="page-sub">How the quarterly update system works</div>
   <h3>How It Works</h3>
   <ul class="bullets">
-    <li>Every Monday at 8am ET, GitHub automatically checks CBRE's website for new quarterly Industrial Figures reports across all 11 markets</li>
-    <li>When new reports are detected, an email is sent automatically with the subject line "Ambrose Quarterly Report Available - [Month] [Year]"</li>
+    <li>Every January 10, April 10, July 10, and October 10 at 8am ET, GitHub automatically checks CBRE's website for new quarterly Industrial Figures reports across all 11 markets</li>
+    <li>One summary email is sent listing which markets have new reports available and which are still pending</li>
+    <li>Subject line: "Ambrose Quarterly Report Available - [Month] [Year]"</li>
     <li>The email contains a direct link to this website</li>
-    <li>New reports are typically published 3–4 weeks after each quarter ends — expect alerts in January, April, July, and October</li>
   </ul>
   <h3>Markets with Full Submarket Breakdown</h3>
-  <p class="body">The following markets include a submarket-level data table reflecting the depth of data published in their CBRE Figures reports. All other markets include key statistics grids sourced from CBRE — submarket tables will be added as more granular data becomes available.</p>
+  <p class="body">All 11 markets include a full submarket-level data table with vacancy, availability, asking rent, net absorption, and under construction data:</p>
   <ul class="bullets">
-    <li><strong>Indianapolis, IN</strong> — 7 submarkets: CBD, East, Northeast, Northwest, Park 100, South, Southwest</li>
+    <li><strong>Indianapolis, IN</strong> — 6 submarkets: CBD, East, Northeast, Northwest, South, Southwest</li>
     <li><strong>Denver, CO</strong> — 5 submarkets: Northeast/I-70, Southeast/I-25, Northwest/Arvada, Southwest/Jefferson, North Central</li>
     <li><strong>Orlando / Central FL</strong> — 5 submarkets: Airport/OIA, I-4 West, Northwest/Apopka, Northeast/Sanford, South/Osceola</li>
-    <li><strong>Miami / South FL</strong> — Split into Miami-Dade County and Broward County with separate market data</li>
+    <li><strong>Miami / South FL</strong> — Miami-Dade County and Broward County with separate market data</li>
     <li><strong>Chicago, IL</strong> — 6 submarkets: O'Hare, I-80/Joliet, North I-55, DuPage County, South Suburbs, Lake County</li>
     <li><strong>Phoenix, AZ</strong> — 5 submarkets: Southwest/Tolleson, Southeast/Mesa, Airport/Sky Harbor, Deer Valley, East Valley</li>
     <li><strong>Columbus / Central OH</strong> — 5 submarkets: Southeast/Rickenbacker, Southwest, Pickaway County, Northeast/Intel, Northwest</li>
@@ -763,23 +701,23 @@
     <li><strong>Louisville, KY</strong> — 5 submarkets: Airport/UPS Worldport, Northeast, South/I-65, Northwest/Riverport, Oldham County</li>
     <li><strong>Nashville, TN</strong> — 5 submarkets: Airport/BNA, Southeast/Antioch, Lebanon/Mt. Juliet, North/Gallatin, West/Clarksville</li>
   </ul>
-<h3>When You Get the Email</h3>
+  <h3>When You Get the Email</h3>
   <ul class="bullets">
-    <li>Open claude.ai and paste in the quarterly update prompt (provided in the handoff guide)</li>
-    <li>Paste the current index.html at the bottom of the prompt — Claude finds all the new CBRE reports automatically</li>
+    <li>Open claude.ai and paste in the quarterly update prompt from the handoff guide</li>
+    <li>Paste the current index.html at the bottom — Claude finds all new CBRE reports automatically</li>
     <li>Paste Claude's updated index.html into GitHub — the website updates within 60 seconds</li>
   </ul>
-  <div class="info-box"><strong>Next expected alert:</strong> July 2026 — when CBRE publishes Q2 2026 Industrial Figures reports.</div>
+  <div class="info-box"><strong>Next expected alert:</strong> July 10, 2026 at 8am ET — when CBRE publishes Q2 2026 Industrial Figures reports.</div>
 </div>
 
 </main>
 </div>
 <script>
 function show(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.sb-item').forEach(n=>n.classList.remove('active'));
-  const page=document.getElementById('page-'+id);
-  const nav=document.getElementById('nav-'+id);
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.sb-item').forEach(function(n){n.classList.remove('active');});
+  var page=document.getElementById('page-'+id);
+  var nav=document.getElementById('nav-'+id);
   if(page)page.classList.add('active');
   if(nav)nav.classList.add('active');
   document.querySelector('.main').scrollTop=0;
