@@ -1,2 +1,2 @@
 # industrial-report
-Q1 2026 Industrial Submarket Report
+Q3 2026 Industrial Submarket Report
